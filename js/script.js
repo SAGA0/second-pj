@@ -1,20 +1,40 @@
 'use strict'
+window.addEventListener('DOMContentLoaded', () => {
+	const tabs = document.querySelectorAll('.tabheader__item'),
+		tabsContent = document.querySelectorAll('.tabcontent'),
+		tabsParent = document.querySelector('.tabheader__items')
 
-const btns = document.querySelectorAll('button'),
-	wrapper = document.querySelector('.btn-bgit remote lock')
+	function hideTabContent() {
+		tabsContent.forEach((item) => {
+			item.classList.add('hide')
+			item.classList.remove('show')
+		})
 
-btns[0].addEventListener('click', () => {
-	btns[1].classList.toggle('red')
-})
-
-wrapper.addEventListener('click', (e) => {
-	if (e.target && e.target.tagName == 'BUTTON') {
-		console.log('Hello')
+		tabs.forEach((item) => {
+			item.classList.remove('tabheader__item_active')
+		})
 	}
+
+	function showTabContent(i = 0) {
+		tabsContent[i].classList.add('show')
+		tabsContent[i].classList.add('fade')
+		tabsContent[i].classList.remove('hide')
+		tabs[i].classList.add('tabheader__item_active')
+	}
+
+	hideTabContent()
+	showTabContent()
+
+	tabsParent.addEventListener('click', (event) => {
+		const target = event.target
+
+		if (target && target.classList.contains('tabheader__item')) {
+			tabs.forEach((item, i) => {
+				if (target == item) {
+					hideTabContent()
+					showTabContent(i)
+				}
+			})
+		}
+	})
 })
-
-const btn = document.createElement('button')
-btn.classList.add('red')
-wrapper.append(btn)
-
-// coment
