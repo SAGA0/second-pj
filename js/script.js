@@ -115,4 +115,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	modalCloser.addEventListener('click', () => {
 		hideModal()
 	})
+
+	document.addEventListener('keydown', (e) => {
+		if (e.code === 'Escape') {
+			hideModal()
+		}
+	})
 })
