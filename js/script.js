@@ -100,6 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	function showModal() {
 		modal.classList.add('show')
 		modal.classList.remove('hide')
+		clearInterval(modalTimer)
 	}
 
 	function hideModal() {
@@ -121,4 +122,18 @@ window.addEventListener('DOMContentLoaded', () => {
 			hideModal()
 		}
 	})
+
+	const modalTimer = setTimeout(showModal, 3000)
+
+	function showModalByScroll() {
+		if (
+			window.pageYOffset + document.documentElement.clientHeight >=
+			document.documentElement.scrollHeight
+		) {
+			showModal()
+			window.removeEventListener('scroll', showModalByScroll)
+		}
+	}
+
+	window.addEventListener('scroll', showModalByScroll)
 })
