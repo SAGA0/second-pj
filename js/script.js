@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// Timer
 
-	const deadline = '2021-11-23'
+	const deadline = '2021-12-23'
 
 	function getTimeRemaining(endtime) {
 		const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -123,7 +123,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	})
 
-	const modalTimer = setTimeout(showModal, 3000)
+	//const modalTimer = setTimeout(showModal, 10000)
 
 	function showModalByScroll() {
 		if (
@@ -134,6 +134,94 @@ window.addEventListener('DOMContentLoaded', () => {
 			window.removeEventListener('scroll', showModalByScroll)
 		}
 	}
-
 	window.addEventListener('scroll', showModalByScroll)
+
+	// Классы конструкторы
+
+	class MenuCard {
+		constructor(src, alt, tittle, descr, price, parentSelector) {
+			this.src = src
+			this.alt = alt
+			this.tittle = tittle
+			this.descr = descr
+			this.price = price
+			this.parent = document.querySelector(parentSelector)
+			this.transfer = 27
+			this.changeToUAH()
+		}
+
+		changeToUAH() {
+			this.price = this.price * this.transfer
+		}
+
+		render() {
+			const element = document.createElement('div')
+			element.innerHTML = `
+        <div class="menu__item">
+            <img src=${this.src} alt=${this.alt} />
+            <h3 class="menu__item-subtitle">${this.tittle}</h3>
+            <div class="menu__item-descr">
+                ${this.descr}
+            </div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+                <div class="menu__item-cost">Цена:</div>
+                <div class="menu__item-total">
+                    <span>${this.price}</span> грн/день
+                </div>
+            </div>
+        </div>`
+			this.parent.append(element)
+		}
+	}
+
+	new MenuCard(
+		'img/tabs/vegy.jpg',
+		'vegy',
+		'Меню "Фитнес"',
+		'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+		5,
+		'.menu .container',
+	).render()
+
+	new MenuCard(
+		'img/tabs/post.jpg',
+		'post',
+		'Меню "Постное"',
+		'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+		14,
+		'.menu .container',
+	).render()
+
+	new MenuCard(
+		'img/tabs/elite.jpg',
+		'elite',
+		'Меню “Премиум”',
+		'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+		21,
+		'.menu .container',
+	).render()
+
+	// функция конструктор
+	// function Auto(brand, litrs) {
+	// 	;(this.brand = brand),
+	// 		(this.litrs = litrs),
+	// 		(this.auto = true),
+	// 		(this.cubs = function () {
+	// 			console.log(`У ${this.brand} объем двигателя ${this.litrs}`)
+	// 		})
+	// }
+
+	// const Bmw = new Auto('BMW', 2.8)
+	// const Audi = new Auto('AUDI', 2.4)
+
+	// console.log(Bmw)
+	// console.log(Audi)
+
+	// Auto.prototype.Power = function () {
+	// 	console.log(`${this.brand} мощнее чем Тойота`)
+	// }
+
+	// Bmw.Power()
+	// Audi.cubs()
 })
