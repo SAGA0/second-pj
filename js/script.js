@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// Timer
 
-	const deadline = '2021-12-23'
+	const deadline = '2022-02-02'
 
 	function getTimeRemaining(endtime) {
 		const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -365,4 +365,44 @@ window.addEventListener('DOMContentLoaded', () => {
 	//	fetch('http://localhost:3000/menu')
 	//		.then((data) => data.json())
 	//		.then((res) => console.log(res))
+
+	// Slides
+	const slides = document.querySelectorAll('.offer__slide'),
+		prev = document.querySelector('.offer__slider-prev'),
+		next = document.querySelector('.offer__slider-next')
+	let curr = document.querySelector('#current'),
+		total = document.querySelector('#total')
+	let slideIndex = 1
+
+	total.innerHTML = getZero(`${slides.length}`)
+
+	showSlides(slideIndex)
+
+	function showSlides(n) {
+		if (n > slides.length) {
+			slideIndex = 1
+		}
+
+		if (n < 1) {
+			slideIndex = slides.length
+		}
+
+		slides.forEach((item) => (item.style.display = 'none'))
+
+		slides[slideIndex - 1].style.display = 'block'
+
+		curr.innerHTML = getZero(`${slideIndex}`)
+	}
+
+	function plusSlides(n) {
+		showSlides((slideIndex += n))
+	}
+
+	next.addEventListener('click', () => {
+		plusSlides(1)
+	})
+
+	prev.addEventListener('click', () => {
+		plusSlides(-1)
+	})
 })
