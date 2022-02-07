@@ -1,17 +1,26 @@
-function slides() {
+function slides({
+	container,
+	slide,
+	prevButton,
+	nextButton,
+	totalCounter,
+	currentCounter,
+	wrapper,
+	field,
+}) {
 	let slideIndex = 1
 	let offset = 0
 	const dots = []
 
-	const slides = document.querySelectorAll('.offer__slide'),
-		slider = document.querySelector('.offer__slider'),
-		prev = document.querySelector('.offer__slider-prev'),
-		next = document.querySelector('.offer__slider-next'),
-		curr = document.querySelector('#current'),
-		total = document.querySelector('#total'),
-		slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+	const slides = document.querySelectorAll(slide),
+		slider = document.querySelector(container),
+		prev = document.querySelector(prevButton),
+		next = document.querySelector(nextButton),
+		curr = document.querySelector(currentCounter),
+		total = document.querySelector(totalCounter),
+		slidesWrapper = document.querySelector(wrapper),
 		width = window.getComputedStyle(slidesWrapper).width,
-		slidesField = document.querySelector('.offer__slider-inner')
+		slidesField = document.querySelector(field)
 
 	slidesField.style.width = 100 * slides.length + '%'
 	slidesField.style.display = 'flex'
@@ -140,4 +149,4 @@ function slides() {
 	})
 }
 
-module.exports = slides
+export default slides
