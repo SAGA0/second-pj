@@ -1,5 +1,7 @@
 'use strict'
+require('es6-promise').polyfill()
 
+import 'nodelist-foreach-polyfill'
 import calc from './modules/calc'
 import cards from './modules/cards'
 import forms from './modules/forms'
@@ -16,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	)
 	calc()
 	cards()
-	forms(modalTimerId)
+	forms('form', modalTimerId)
 	modal('[data-modal]', '.modal', modalTimerId)
 	slides({
 		container: '.offer__slider',

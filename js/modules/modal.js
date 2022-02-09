@@ -1,22 +1,25 @@
 function closeModal(modalSelector) {
-	modal = document.querySelector(modalSelector)
+	const modal = document.querySelector(modalSelector)
+
 	modal.classList.add('hide')
 	modal.classList.remove('show')
 	document.body.style.overflow = ''
 }
 
 function openModal(modalSelector, modalTimerId) {
-	modal = document.querySelector(modalSelector)
+	const modal = document.querySelector(modalSelector)
+
 	modal.classList.add('show')
 	modal.classList.remove('hide')
 	document.body.style.overflow = 'hidden'
+
 	if (modalTimerId) {
 		clearInterval(modalTimerId)
 	}
 }
 
-function modal(trigger, modalSelector, modalTimerId) {
-	const modalTrigger = document.querySelectorAll(trigger),
+function modal(triggerSelector, modalSelector, modalTimerId) {
+	const modalTrigger = document.querySelectorAll(triggerSelector),
 		modal = document.querySelector(modalSelector)
 
 	modalTrigger.forEach((btn) => {
@@ -36,7 +39,19 @@ function modal(trigger, modalSelector, modalTimerId) {
 			closeModal(modalSelector)
 		}
 	})
+
+	function showModalByScroll() {
+		if (
+			window.pageYOffset + document.documentElement.clientHeight >=
+			document.documentElement.scrollHeight
+		) {
+			openModal(modalSelector, modalTimerId)
+			window.removeEventListener('scroll', showModalByScroll)
+		}
+	}
+	window.addEventListener('scroll', showModalByScroll)
 }
 
 export default modal
-export { closeModal, openModal }
+export { closeModal }
+export { openModal }
